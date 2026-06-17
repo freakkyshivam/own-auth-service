@@ -88,6 +88,16 @@ Implements OTP-based login, session management, refresh token rotation, and devi
 
 ---
 
+## Roadmap (V2 — Starting September 2026)
+
+- OAuth provider support for third-party apps (login with this service)
+- API key generation for organizations
+- Multi-tenant architecture for using this as an auth-as-a-service
+- Webhook support for auth events
+- Admin dashboard for organization management
+ 
+
+---
 ## ℹ️ This project was migrated from an earlier repository. Commit history prior to migration is not available here.
 
  
