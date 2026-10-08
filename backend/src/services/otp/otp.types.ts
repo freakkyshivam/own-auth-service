@@ -2,7 +2,9 @@
 export type OtpPurpose =
   | "ACCOUNT_VERIFY"
   | "RESET_PASSWORD"
-  | "TWO_FACTOR";
+  | "TWO_FACTOR"
+  | "GENERATE_NEW_CODE"
+  ;
 
 export interface SendOtpInput {
   identifier: string;  

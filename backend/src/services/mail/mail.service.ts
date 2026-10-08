@@ -6,7 +6,8 @@ import {
    passwordResetAlertTemplate,
    welcomeTemplate,
    twoFactorEnableAlertTemplate,
-   twoFactorDisableAlertTemplate
+   twoFactorDisableAlertTemplate,
+   generateNewBackupCodeVerifyOtpTemplate
    } from "./mail.templates.js";
 
  
@@ -113,4 +114,20 @@ export async function sendTwoFactorDisableAlertEmail(
   });
 
   return info.messageId;
+}
+
+export async function sendGenerateBackupCodeOTPEmail(
+  name : string | undefined,
+  otp : string,
+  email : string
+){
+
+  const template = generateNewBackupCodeVerifyOtpTemplate({otp, name})
+  const info = await transporter.sendMail({
+    from : `"Shivam Chaudhary" <${process.env.SENDER_EMAIL}>`,
+    to : email,
+    subject : template.subject,
+    text : template.text,
+    html : template.html
+  })
 }

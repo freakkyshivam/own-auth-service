@@ -8,10 +8,10 @@ import authenticator from "../../config/otplib.js";
 import { encryptSecret, decryptSecret } from "../../utils/crypto.util.js";
 import { generateAndSaveBackupCode } from "../../services/user/generateAndSaveBackupcode.js";
 import backupCodesTable from "../../db/schema/user_2fa_backupcode.scema.js";
-import z from "zod";
+import z, { email } from "zod";
 import  argon2 from "argon2";
 import { enqueueMail } from "../../queues/mail.queue.js";
-
+import { storeOtpInRedis, verifyOtpFromRedis } from "../../services/otp/otp.service.js";
 const redis = await getRedis();
 
 export const setup2fa = async (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ export const setup2fa = async (req: Request, res: Response) => {
         .status(400)
         .json({ success: false, msg: "2FA secret code not generated" });
 
-    const otpAuth = authenticator.keyuri(user.email, "Secure Auth", secret);
+    const otpAuth = authenticator.keyuri(user.email, "Authify", secret);
 
     const data = {
         secret,
@@ -276,23 +276,27 @@ export const generateNewBackupCode = async (req:Request, res:Response)=>{
       })
     }
 
-     const {password} = req.body;
+     
 
-  if(!password){
-    return res.status(400).json({
-      success:false,
-      msg:"Password are required for disable 2FA"
+     const otpS = await storeOtpInRedis({identifier:user.email, purpose:"GENERATE_NEW_CODE"});
+    enqueueMail("GENERATE_NEW_CODE",{
+      name : user.name,
+      email : user.email,
+      otp : otpS
     })
-  }
 
- 
+    const {otp} = req.body;
 
-  const isValid = await argon2.verify(user.password,password)
+   const isValid = await verifyOtpFromRedis({
+    identifier : user.email,
+    purpose : "GENERATE_NEW_CODE",
+    otp
+   })
 
   if(!isValid){
-     return res.status(400).json({
+    return res.status(401).json({
       success:false,
-      msg:"Invalid password"
+      msg:"Invalid OTP"
     })
   }
 

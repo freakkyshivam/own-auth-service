@@ -58,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
 
     if (existingUser) {
       return res
-        .status(400)
+        .status(409)
         .json({
           success: false,
           msg: `User with this email ${email} already registered`,
@@ -138,7 +138,7 @@ export const verifyRegisterOtp = async (req: Request, res: Response) => {
 
     await redis.del(`pending-user:${email}`);
 
-     await db
+    const [user] = await db
       .insert(Users)
       .values({
         name,
@@ -156,6 +156,7 @@ export const verifyRegisterOtp = async (req: Request, res: Response) => {
     return res.status(201).json({
       success: true,
       msg: "Registration successfull",
+      user
     });
   } catch (err: any) {
     return res.status(500).json({ success: false });

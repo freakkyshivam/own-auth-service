@@ -42,10 +42,15 @@ const NavBar = () => {
             <Shield className="h-6 w-6 text-white" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl md:text-2xl font-bold bg-linear-to-br from-blue-400 to-indigo-400 bg-clip-text text-transparent leading-tight">
-              SecureAuth
-            </h1>
-            <p className="text-[10px] md:text-xs text-gray-500 -mt-0.5">by Shivam Chaudhary</p>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl md:text-2xl font-bold bg-linear-to-br from-blue-400 to-indigo-400 bg-clip-text text-transparent leading-tight">
+                Authify
+              </h1>
+              <span className="text-[10px] font-mono tracking-wider bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">
+                authify.in
+              </span>
+            </div>
+            <p className="text-[10px] md:text-xs text-gray-400 -mt-0.5">Authentication infrastructure for developers</p>
           </div>
         </div>
 

@@ -86,11 +86,7 @@ export const login = async (req: Request, res: Response) => {
       sessionId
     );
 
-    const refreshToken = await generateRefreshToken(
-      existingUser.id,
-      existingUser.email,
-      existingUser.is2fa
-    );
+    const refreshToken = generateRefreshToken();
 
     const hashedRefreshToken = crypto
       .createHash("sha256")
@@ -247,11 +243,7 @@ export const verify2faLogin = async (req: Request, res: Response) => {
       existingUser.is2fa,
       sessionId
     );
-    const refreshToken = await generateRefreshToken(
-      existingUser.id,
-      existingUser.email,
-      existingUser.is2fa
-    );
+    const refreshToken = generateRefreshToken();
 
     const hashedRefreshToken = crypto
       .createHash("sha256")

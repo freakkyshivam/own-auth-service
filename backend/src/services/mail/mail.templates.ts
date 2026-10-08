@@ -274,3 +274,75 @@ This is an automated security message. Please do not reply.`,
   };
 }
 
+ 
+
+ export function generateNewBackupCodeVerifyOtpTemplate({
+  otp,
+  name,
+}: {
+  otp: string;
+  name?: string;
+}) {
+  return {
+    subject: "🔐 Verify OTP to Generate New Backup Codes",
+    text: `Request to generate new backup codes 💻
+
+Hello ${name ? name : "User"},
+
+We received a request to generate new backup codes for your account.
+
+To continue, please verify your identity using the One-Time Password (OTP) below:
+
+OTP: ${otp}
+
+This OTP is valid for a limited time. Do not share this code with anyone.
+
+If you did not request new backup codes, please ignore this email or contact our support team immediately.
+
+This is an automated security message. Please do not reply.`,
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 style="color:#2563eb;">Verify OTP to Generate New Backup Codes</h2>
+
+        <p>Hello ${name ? name : "User"},</p>
+
+        <p>
+          We received a request to <strong>generate new backup codes</strong> for your account.
+        </p>
+
+        <p>
+          To proceed, please verify your identity using the One-Time Password (OTP) below:
+        </p>
+
+        <div style="
+          background-color: #eff6ff;
+          border-left: 4px solid #2563eb;
+          padding: 16px;
+          margin: 20px 0;
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: 2px;
+          text-align: center;
+        ">
+          ${otp}
+        </div>
+
+        <p>
+          This OTP is valid for a limited time. For your security, please do not share this code with anyone.
+        </p>
+
+        <p style="color:#dc2626;">
+          If you did <strong>not</strong> request new backup codes, please ignore this email or contact our support team immediately.
+        </p>
+
+        <hr />
+
+        <p style="font-size: 12px; color: #777;">
+          This is an automated security message. Please do not reply.
+        </p>
+      </div>
+    `,
+  };
+}
+
+

@@ -15,7 +15,7 @@ export const mailQueue = new Queue('mail-queue',{
 })
 
   export const enqueueMail = async (
-        type:   "WELCOME" | "PASSWORD_RESET" | "ACCOUNT_VERIFY" | "PASSWORD_RESET_ALERT" | "TWO_FA_ENABLE_ALERT" | "TWO_FA_DISABLE_ALERT",
+        type:   "WELCOME" | "PASSWORD_RESET" | "ACCOUNT_VERIFY" | "PASSWORD_RESET_ALERT" | "TWO_FA_ENABLE_ALERT" | "TWO_FA_DISABLE_ALERT" | "GENERATE_NEW_CODE",
     payload: Record<string, any>
     )=>{
         await mailQueue.add(type,payload);

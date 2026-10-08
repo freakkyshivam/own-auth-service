@@ -33,18 +33,12 @@ export const refreshToken = async (req: Request, res: Response) => {
       return res.status(401).json({ success: false, msg: "Missing tokens" });
     }
 
-    // #region agent log
-    const verifyStartTime = Date.now();
-    fetch('http://127.0.0.1:7242/ingest/1418b0b3-e616-4466-997e-06f62e8307db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'token.controller.ts:28',message:'Before jwt.verify refreshToken',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
+    
     const payload = jwt.verify(
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET!
     ) as JwtPayload;
-    // #region agent log
-    const verifyEndTime = Date.now();
-    fetch('http://127.0.0.1:7242/ingest/1418b0b3-e616-4466-997e-06f62e8307db',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'token.controller.ts:35',message:'After jwt.verify refreshToken',data:{hasPayload:!!payload,verifyTime:verifyEndTime-verifyStartTime},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
+  
 
 
 if(!payload){
@@ -104,11 +98,7 @@ if(!payload){
       user.is2fa,
       sid
     );
-    const newRefreshToken = await generateRefreshToken(
-      user.id,
-      user.email,
-      user.is2fa
-    );
+    const newRefreshToken =  generateRefreshToken();
 
     const newHashedRefreshToken = await argon2.hash(newRefreshToken as string);
 

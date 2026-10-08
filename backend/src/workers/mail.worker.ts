@@ -8,6 +8,7 @@ import {
   sendPasswordRestAlertEmail,
   sendTwoFactorEnableAlertEmail,
   sendTwoFactorDisableAlertEmail,
+  sendGenerateBackupCodeOTPEmail
 } from "../services/mail/mail.service.js";
 
 
@@ -61,6 +62,14 @@ const worker = new Worker('mail-queue',
                     data.name,
                     data.email,
                 );
+                break;
+
+            case "GENERATE_NEW_CODE" :
+                await sendGenerateBackupCodeOTPEmail(
+                    data.name,
+                    data.otp,
+                    data.email
+                )
                 break;
 
             default:
