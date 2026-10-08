@@ -10,7 +10,8 @@ import db from './db/db.js'
 import {sql} from 'drizzle-orm'
 const allowedOrigin = [
     'http://localhost:5173',
-    'https://otpbasedauth.vercel.app'
+    'https://otpbasedauth.vercel.app',
+    'https://www.authify.in'
 ]
 
 const app:Express = express();
