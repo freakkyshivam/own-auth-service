@@ -101,5 +101,22 @@ Authify is evolving into a comprehensive developer-first identity infrastructure
 
 ---
 
+<<<<<<< HEAD
 ## ℹ️ History
 This project was started around November 2025 as a security-first OTP authentication system and has been positioned and rebranded as **Authify** ([authify.in](https://authify.in)).
+=======
+## Roadmap (V2 — Starting September 2026)
+
+- OAuth provider support for third-party apps (login with this service)
+- API key generation for organizations
+- Multi-tenant architecture for using this as an auth-as-a-service
+- Webhook support for auth events
+- Admin dashboard for organization management
+ 
+
+---
+## ℹ️ This project was migrated from an earlier repository. Commit history prior to migration is not available here.
+
+ 
+
+>>>>>>> 89e27523075a945c8b7d36e5ae4686fc2e26014f
